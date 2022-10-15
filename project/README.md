@@ -32,6 +32,7 @@ az policy assignment list
 ```
 #### Setting the environment variables for the packer build
 Find the subscription ID in Azure:
+
 ![Alt text](./screenshots_for_readme/azure_subscriptionID.png "subs_id")
 Create a simple app registration in Azure AD - the name Terraform was used here. Save the Client ID and create a client secret:
 ![Alt text](./screenshots_for_readme/azure_app_registration_clientID.png "client_id")
