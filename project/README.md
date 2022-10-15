@@ -53,6 +53,8 @@ az image list
 ```
 
 #### Deploying the Terraform template
+***Use the variables.tf file to customize the deployment parameters, or use the command line to specify values if the default values provided do not fit the requirements.
+
 Run terraform plan to ensure there are no errors and to create the .plan file:
 ```bash
 terraform plan -out solution.plan
