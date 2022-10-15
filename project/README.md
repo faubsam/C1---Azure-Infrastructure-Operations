@@ -37,9 +37,9 @@ Create a simple app registration in Azure AD - the name Terraform was used here.
 
 Using Git bash shell on Windows, create 3 environment variables as shown below:
 ```bash
-export ARM_CLIENT_ID
-export ARM_CLIENT_SECRET
-export ARM_SUBSCRIPTION_ID
+export ARM_CLIENT_ID = <your_client_id>
+export ARM_CLIENT_SECRET = <your_client_secret_value>
+export ARM_SUBSCRIPTION_ID = <your_subscription_id>
 ```
 
 #### Building the image with Packer
