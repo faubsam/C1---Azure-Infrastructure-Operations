@@ -38,32 +38,38 @@ resource "azurerm_network_security_group" "sg" {
 
   security_rule {
     name                       = "allowInternalNetworkAccess"
-    priority                   = 100
+    priority                   = 101
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "*"
-    source_address_prefix      = "10.0.1.0/24"
-    destination_address_prefix = "*"
+    source_address_prefix      = "VirtualNetwork"
+    destination_address_prefix = "VirtualNetwork"
   }
 
   security_rule {
-    name                       = "denyAll"
-    priority                   = 110
+    name                       = "denyInternetInbound"
+    priority                   = 100
     direction                  = "Inbound"
     access                     = "Deny"
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "*"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
+    source_address_prefix      = "Internet"
+    destination_address_prefix = "VirtualNetwork"
   }
 
   tags = {
     Project = "Azure Devops C1"
   }
 }
+
+resource "azurerm_subnet_network_security_group_association" "main" {
+  subnet_id                 = azurerm_subnet.internal.id
+  network_security_group_id = azurerm_network_security_group.sg.id
+}
+
 
 resource "azurerm_public_ip" "public-ip" {
   name                = "${var.prefix}-public-ip"
@@ -119,6 +125,13 @@ resource "azurerm_lb" "lb" {
 resource "azurerm_lb_backend_address_pool" "main" {
   loadbalancer_id     = azurerm_lb.lb.id
   name                = "BackEndAddressPool"
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "main" {
+  count                   = var.vm_count
+  network_interface_id    = azurerm_network_interface.inet[count.index].id
+  ip_configuration_name   = "internal"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.main.id
 }
 
 resource "azurerm_availability_set" "as" {

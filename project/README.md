@@ -3,6 +3,11 @@
 ### Introduction
 For this project, you will write a Packer template and a Terraform template to deploy a customizable, scalable web server in Azure.
 
+### Overview
+The first component of the project is an Azure policy which enforces tagging on all resources created.
+Secondly, a packer image of an Ubuntu server using version 18.04-LTS will be built and saved in Azure Images.
+Finally, using Terraform, multiple virtual machines in an availability will be built using the Packer image. 
+
 ### Getting Started
 1. Clone this repository
 
@@ -59,6 +64,7 @@ az image list
 
 #### Deploying the Terraform template
 ***Use the variables.tf file to customize the deployment parameters, or use the command line to specify values if the default values provided do not fit the requirements.
+Variables can be added or changed in the variables.tf file and then referenced in main.tf using the syntax var.<variable_name>
 
 Run terraform plan to ensure there are no errors and to create the .plan file:
 ```bash
