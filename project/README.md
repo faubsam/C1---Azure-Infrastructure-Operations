@@ -17,7 +17,7 @@ For this project, you will write a Packer template and a Terraform template to d
 4. Install [Terraform](https://www.terraform.io/downloads.html)
 
 ### Instructions
-##### Creating the Azure policy
+#### Creating the Azure policy
 ```bash
 az policy definition create --name tagging-policy --rules tagging-policy.json
 ```
@@ -30,7 +30,7 @@ Verify the policy assignment:
 ```bash
 az policy assignment list
 ```
-##### Setting the environment variables for the packer build
+#### Setting the environment variables for the packer build
 Find the subscription ID in Azure:
 
 Create a simple app registration in Azure AD - the name Terraform was used here. Save the Client ID and create a client secret:
@@ -42,7 +42,7 @@ export ARM_CLIENT_SECRET
 export ARM_SUBSCRIPTION_ID
 ```
 
-##### Building the image with Packer
+#### Building the image with Packer
 Use packer to build the image:
 ```bash
 packer build server.json
@@ -52,7 +52,7 @@ Verify the image in Azure using the portal or the CLI:
 az image list
 ```
 
-##### Deploying the Terraform template
+#### Deploying the Terraform template
 Run terraform plan to ensure there are no errors and to create the .plan file:
 ```bash
 terraform plan -out solution.plan
@@ -69,7 +69,7 @@ The resources can be viewed in the Azure Portal or by using the terraform show c
 terraform show
 ```
 
-##### Destroying the resources
+#### Destroying the resources
 When finished, Terraform can easily tear down the environment to avoid additional costs in Azure:
 ```bash
 terraform destroy
